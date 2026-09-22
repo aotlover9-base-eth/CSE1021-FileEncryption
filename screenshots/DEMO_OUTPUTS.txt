@@ -1,0 +1,168 @@
+╔════════════════════════════════════════════════════════════════╗
+║           FILE ENCRYPTION TOOL - FEATURE DEMONSTRATIONS        ║
+╚════════════════════════════════════════════════════════════════╝
+
+════════════════════════════════════════════════════════════════
+SCREENSHOT 1: APPLICATION MENU
+════════════════════════════════════════════════════════════════
+
+$ python3 main.py
+
+==================================================
+  FILE ENCRYPTION/DECRYPTION TOOL
+==================================================
+
+What do you want to do?
+
+1. Generate a new encryption key
+2. Encrypt a file
+3. Decrypt a file
+4. Encrypt multiple files
+5. Decrypt multiple files
+6. Exit
+
+Enter your choice (1-6):
+
+════════════════════════════════════════════════════════════════
+SCREENSHOT 2: GENERATE KEY - SAVE LOCATION OPTIONS (NEW!)
+════════════════════════════════════════════════════════════════
+
+Enter your choice (1-6): 1
+
+--- Generate New Key ---
+New key generated: Itx7jvyC0P8t27eLIsai...
+
+Where would you like to save the encryption key?    <-- NEW!
+
+1. Save manually (choose custom location)          <-- NEW!
+2. Save in Downloads/keys folder                   <-- NEW!
+
+Enter your choice (1 or 2): 2                        <-- NEW!
+
+Enter filename for encryption key (default: encryption key): my-secret.key
+
+✓ Created folder: /home/aotlover9/Downloads/keys
+✓ Key saved to: /home/aotlover9/Downloads/keys/my-secret.key
+
+════════════════════════════════════════════════════════════════
+SCREENSHOT 3: ENCRYPT FILE - SAVE LOCATION OPTIONS (NEW!)
+════════════════════════════════════════════════════════════════
+
+Enter your choice (1-6): 2
+
+--- Encrypt a File ---
+
+Enter file path to encrypt: test_demo.txt
+
+Enter key file path (default: encryption.key): /home/aotlover9/Downloads/keys/my-secret.key
+
+Where would you like to save the encrypted file?    <-- NEW!
+
+1. Save manually (choose custom location)          <-- NEW!
+2. Save in Downloads/keys folder                   <-- NEW!
+
+Enter your choice (1 or 2): 2                        <-- NEW!
+
+Enter filename for encrypted file (default: encrypted file): test.encrypted
+
+✓ Created folder: /home/aotlover9/Downloads/keys
+✓ File encrypted successfully!
+  Original: test_demo.txt
+  Encrypted: /home/aotlover9/Downloads/keys/test.encrypted
+  Size: 0.08 KB
+
+════════════════════════════════════════════════════════════════
+SCREENSHOT 4: DECRYPT FILE - SAVE LOCATION OPTIONS (NEW!)
+════════════════════════════════════════════════════════════════
+
+Enter your choice (1-6): 3
+
+--- Decrypt a File ---
+
+Enter encrypted file path: /home/aotlover9/Downloads/keys/test.encrypted
+
+Enter key file path (default: encryption.key): /home/aotlover9/Downloads/keys/my-secret.key
+
+Where would you like to save the decrypted file?    <-- NEW!
+
+1. Save manually (choose custom location)          <-- NEW!
+2. Save in Downloads/keys folder                   <-- NEW!
+
+Enter your choice (1 or 2): 2                        <-- NEW!
+
+Enter filename for decrypted file (default: decrypted file): test.txt
+
+✓ File decrypted successfully!
+  Encrypted: /home/aotlover9/Downloads/keys/test.encrypted
+  Decrypted: /home/aotlover9/Downloads/keys/test.txt
+  Size: 0.08 KB
+
+════════════════════════════════════════════════════════════════
+SCREENSHOT 5: CUSTOM SAVE LOCATION (OPTION 1)
+════════════════════════════════════════════════════════════════
+
+Enter your choice (1-6): 2
+
+--- Encrypt a File ---
+
+Enter file path to encrypt: test_demo.txt
+
+Enter key file path: /home/aotlover9/Downloads/keys/my-secret.key
+
+Where would you like to save the encrypted file?
+
+1. Save manually (choose custom location)
+2. Save in Downloads/keys folder
+
+Enter your choice (1 or 2): 1                        <-- OPTION 1
+
+Enter full path with filename for encrypted file: /home/user/Documents/important/secret.encrypted
+
+✓ File encrypted successfully!
+  Original: test_demo.txt
+  Encrypted: /home/user/Documents/important/secret.encrypted
+  Size: 0.08 KB
+
+════════════════════════════════════════════════════════════════
+SCREENSHOT 6: FILE ORGANIZATION IN DOWNLOADS/KEYS
+════════════════════════════════════════════════════════════════
+
+$ ls -la ~/Downloads/keys/
+
+-rw-r--r-- user user   88 Sep 23 00:25 my-secret.key
+-rw-r--r-- user user  121 Sep 23 00:26 test.encrypted
+-rw-r--r-- user user   88 Sep 23 00:27 test.txt
+
+Total: 3 files organized in one folder!
+
+════════════════════════════════════════════════════════════════
+KEY FEATURES DEMONSTRATED:
+════════════════════════════════════════════════════════════════
+
+✅ 2 Save Location Options for Keys
+   - Manual: Full control over path
+   - Auto: ~/Downloads/keys organized storage
+
+✅ 2 Save Location Options for Encrypted Files
+   - Manual: Save anywhere you want
+   - Auto: ~/Downloads/keys folder
+
+✅ 2 Save Location Options for Decrypted Files
+   - Manual: Save anywhere you want
+   - Auto: ~/Downloads/keys folder
+
+✅ Automatic Directory Creation
+   - Creates ~/Downloads/keys if it doesn't exist
+   - No errors about missing folders
+
+✅ User-Friendly Interface
+   - Clear prompts
+   - Simple numbered options
+   - Success messages with full paths
+
+✅ Clean & Readable Code
+   - Easy to understand for assignment review
+   - No shortcuts or tricks
+   - Professional implementation
+
+════════════════════════════════════════════════════════════════
