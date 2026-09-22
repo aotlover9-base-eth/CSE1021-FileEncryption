@@ -4,12 +4,13 @@ A simple, human-friendly command-line tool to encrypt and decrypt files using AE
 
 ## Features
 
-- **Generate encryption keys** - Create secure encryption keys
-- **Encrypt files** - Secure your sensitive files with AES encryption
-- **Decrypt files** - Restore encrypted files back to original
+- **Generate encryption keys** - Create secure encryption keys with flexible save locations
+- **Encrypt files** - Secure your sensitive files with AES encryption, save anywhere you want
+- **Decrypt files** - Restore encrypted files back to original, choose where to save
 - **Batch operations** - Encrypt/decrypt multiple files at once
-- **Key management** - Save and load encryption keys
-- **User-friendly interface** - Simple menu-based CLI
+- **Key management** - Save and load encryption keys with custom locations
+- **Flexible file storage** - Save encrypted/decrypted files in custom locations or ~/Downloads/keys
+- **User-friendly interface** - Simple menu-based CLI with clear options
 
 ## Requirements
 
@@ -57,38 +58,68 @@ Or on Linux/Mac:
 When you run the application for the first time:
 1. Choose option **1** - "Generate a new encryption key"
 2. A new key will be generated
-3. Save it with a name like `encryption.key`
+3. Choose where to save it:
+   - **Option 1:** Save manually - Enter custom path (e.g., `/home/user/keys/mykey.key`)
+   - **Option 2:** Save in Downloads/keys - Automatically saves to `~/Downloads/keys/` folder (creates it if needed)
 
 **Important:** Keep your key file safe! Without it, you cannot decrypt files.
 
 ### Step 2: Encrypt a File
 1. Choose option **2** - "Encrypt a file"
 2. Enter the file path you want to encrypt (e.g., `secret.txt`)
-3. Enter your key file path (default: `encryption.key`)
-4. The tool will create an encrypted copy with `.encrypted` extension
+3. Enter your key file path
+4. Choose where to save the encrypted file:
+   - **Option 1:** Save manually - Enter custom path
+   - **Option 2:** Save in Downloads/keys - Automatically saves to `~/Downloads/keys/` folder
+5. The encrypted file will be saved to your chosen location
 
 Example:
 ```
 Original file: secret.txt
-Encrypted file: secret.txt.encrypted
+Encrypted file: ~/Downloads/keys/secret.txt.encrypted
 ```
 
 ### Step 3: Decrypt a File
 1. Choose option **3** - "Decrypt a file"
 2. Enter the encrypted file path
 3. Enter your key file path
-4. The tool will create a decrypted copy with `.decrypted` extension
+4. Choose where to save the decrypted file:
+   - **Option 1:** Save manually - Enter custom path
+   - **Option 2:** Save in Downloads/keys - Automatically saves to `~/Downloads/keys/` folder
+5. The decrypted file will be saved to your chosen location
 
 Example:
 ```
-Encrypted file: secret.txt.encrypted
-Decrypted file: secret.txt.decrypted
+Encrypted file: ~/Downloads/keys/secret.txt.encrypted
+Decrypted file: ~/Downloads/keys/secret.txt
 ```
 
 ### Multiple Files (Options 4 & 5)
 - Choose **4** to encrypt multiple files at once
 - Choose **5** to decrypt multiple files at once
 - Enter the number of files and their paths
+- Each file will ask you where to save the encrypted/decrypted version
+
+## Save Location Features (NEW!)
+
+### Option 1: Save Manually
+Choose this if you want to save files in a specific location:
+- You type the complete path with filename
+- Example: `/home/user/my-documents/secret.txt`
+- Works with absolute paths (recommended) or relative paths
+
+### Option 2: Save in Downloads/keys
+Choose this for organized, automatic storage:
+- Files save to `~/Downloads/keys/` folder
+- The folder is created automatically if it doesn't exist
+- Just enter a filename, the tool handles the rest
+- Example: Type `mykey.key` → Saves to `~/Downloads/keys/mykey.key`
+
+**Benefits:**
+- ✅ All keys and files in one organized place
+- ✅ No need to remember paths
+- ✅ Automatic folder creation
+- ✅ Clean and organized file management
 
 ## File Structure
 
@@ -142,12 +173,13 @@ echo "This is a secret message" > secret.txt
 
 ### encryption.py
 - `generate_key()` - Creates a new encryption key
-- `save_key()` - Saves key to file
+- `get_save_location()` - Asks user where to save a file (custom path or Downloads/keys folder)
+- `save_key()` - Saves key to file with automatic directory creation
 - `load_key()` - Loads key from file
-- `encrypt_file()` - Encrypts a single file
-- `decrypt_file()` - Decrypts a single file
-- `encrypt_multiple_files()` - Batch encryption
-- `decrypt_multiple_files()` - Batch decryption
+- `encrypt_file()` - Encrypts a single file and asks where to save
+- `decrypt_file()` - Decrypts a single file and asks where to save
+- `encrypt_multiple_files()` - Batch encryption with save location choice
+- `decrypt_multiple_files()` - Batch decryption with save location choice
 
 ## Troubleshooting
 

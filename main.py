@@ -5,7 +5,8 @@ import sys
 from encryption import (
     generate_key, save_key, load_key,
     encrypt_file, decrypt_file,
-    encrypt_multiple_files, decrypt_multiple_files
+    encrypt_multiple_files, decrypt_multiple_files,
+    get_save_location
 )
 
 def print_banner():
@@ -39,9 +40,11 @@ def handle_generate_key():
     key = generate_key()
     print(f"New key generated: {key.decode()[:20]}...")
 
-    save_location = input("\nEnter filename to save key (default: encryption.key): ").strip()
-    if not save_location:
-        save_location = "encryption.key"
+    save_location = get_save_location("encryption key")
+
+    if save_location is None:
+        print("✗ Invalid choice. Key not saved.")
+        return
 
     save_key(key, save_location)
 
