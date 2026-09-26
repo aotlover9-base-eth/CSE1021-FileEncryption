@@ -21,7 +21,7 @@ A simple, human-friendly command-line tool to encrypt and decrypt files using AE
 
 ### 1. Clone or download the project
 ```bash
-git clone https://github.com/YOUR-USERNAME/CSE1021-FileEncryption.git
+git clone https://github.com/aotlover9-base-eth/CSE1021-FileEncryption.git
 cd CSE1021-FileEncryption
 ```
 
