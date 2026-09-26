@@ -19,7 +19,31 @@ def get_save_location(file_type="file"):
     choice = input("\nEnter your choice (1 or 2): ").strip()
 
     if choice == '1':
-        save_path = input(f"Enter full path with filename for {file_type}: ").strip()
+        filename = input(f"Enter filename for {file_type}: ").strip()
+        if not filename:
+            filename = "encryption.key" if file_type == "encryption key" else file_type
+
+        # In case user entered a path in the filename, extract the base filename
+        file_dir_from_name = os.path.dirname(filename)
+        if file_dir_from_name:
+            filename = os.path.basename(filename)
+
+        file_path = input("Enter file path: ").strip()
+        if not file_path:
+            file_path = file_dir_from_name if file_dir_from_name else "."
+        file_path = os.path.expanduser(file_path)
+
+        # If user entered the full filepath including filename in file_path, avoid duplicate
+        clean_path = file_path.rstrip("/\\")
+        if os.path.basename(clean_path) == filename:
+            save_path = file_path
+        else:
+            save_path = os.path.join(file_path, filename)
+
+        if os.path.isdir(save_path):
+            print(f"✗ Error: '{save_path}' is a directory, not a file.")
+            return None
+
         return save_path
 
     elif choice == '2':
@@ -37,6 +61,9 @@ def get_save_location(file_type="file"):
             filename = file_type
 
         save_path = os.path.join(keys_folder, filename)
+        if os.path.isdir(save_path):
+            print(f"✗ Error: '{save_path}' is a directory, not a file.")
+            return None
         return save_path
 
     else:
@@ -45,14 +72,26 @@ def get_save_location(file_type="file"):
 
 def save_key(key, key_filename):
     """Save the encryption key to a file"""
-    # Create directory if it doesn't exist
-    key_directory = os.path.dirname(key_filename)
-    if key_directory and not os.path.exists(key_directory):
-        os.makedirs(key_directory)
+    if os.path.isdir(key_filename):
+        print(f"✗ Error: '{key_filename}' is a directory, not a file.")
+        return False
 
-    with open(key_filename, 'wb') as key_file:
-        key_file.write(key)
-    print(f"✓ Key saved to: {key_filename}")
+    try:
+        # Create directory if it doesn't exist
+        key_directory = os.path.dirname(key_filename)
+        if key_directory and not os.path.exists(key_directory):
+            os.makedirs(key_directory)
+
+        with open(key_filename, 'wb') as key_file:
+            key_file.write(key)
+        print(f"✓ Key saved to: {key_filename}")
+        return True
+    except IsADirectoryError:
+        print(f"✗ Error: '{key_filename}' is a directory, not a file.")
+        return False
+    except Exception as e:
+        print(f"✗ Failed to save key: {e}")
+        return False
 
 def load_key(key_filename):
     """Load the encryption key from a file"""
@@ -60,14 +99,29 @@ def load_key(key_filename):
         print(f"✗ Key file not found: {key_filename}")
         return None
 
-    with open(key_filename, 'rb') as key_file:
-        key = key_file.read()
-    return key
+    if os.path.isdir(key_filename):
+        print(f"✗ Error: '{key_filename}' is a directory, not a file.")
+        return None
+
+    try:
+        with open(key_filename, 'rb') as key_file:
+            key = key_file.read()
+        return key
+    except IsADirectoryError:
+        print(f"✗ Error: '{key_filename}' is a directory, not a file.")
+        return None
+    except Exception as e:
+        print(f"✗ Failed to load key: {e}")
+        return None
 
 def encrypt_file(file_path, key):
     """Encrypt a file and ask where to save it"""
     if not os.path.exists(file_path):
         print(f"✗ File not found: {file_path}")
+        return False
+
+    if os.path.isdir(file_path):
+        print(f"✗ Error: '{file_path}' is a directory, not a file.")
         return False
 
     try:
@@ -82,6 +136,10 @@ def encrypt_file(file_path, key):
         encrypted_filename = get_save_location("encrypted file")
 
         if encrypted_filename is None:
+            return False
+
+        if os.path.isdir(encrypted_filename):
+            print(f"✗ Error: '{encrypted_filename}' is a directory, not a file.")
             return False
 
         # Create directory if it doesn't exist
@@ -99,6 +157,9 @@ def encrypt_file(file_path, key):
         print(f"  Size: {file_size_kb:.2f} KB")
         return True
 
+    except IsADirectoryError:
+        print("✗ Error: Cannot encrypt a directory.")
+        return False
     except Exception as e:
         print(f"✗ Encryption failed: {e}")
         return False
@@ -107,6 +168,10 @@ def decrypt_file(encrypted_file_path, key):
     """Decrypt a file and ask where to save it"""
     if not os.path.exists(encrypted_file_path):
         print(f"✗ File not found: {encrypted_file_path}")
+        return False
+
+    if os.path.isdir(encrypted_file_path):
+        print(f"✗ Error: '{encrypted_file_path}' is a directory, not a file.")
         return False
 
     try:
@@ -121,6 +186,10 @@ def decrypt_file(encrypted_file_path, key):
         decrypted_filename = get_save_location("decrypted file")
 
         if decrypted_filename is None:
+            return False
+
+        if os.path.isdir(decrypted_filename):
+            print(f"✗ Error: '{decrypted_filename}' is a directory, not a file.")
             return False
 
         # Create directory if it doesn't exist
@@ -140,6 +209,9 @@ def decrypt_file(encrypted_file_path, key):
 
     except InvalidToken:
         print("✗ Wrong key! Cannot decrypt file.")
+        return False
+    except IsADirectoryError:
+        print("✗ Error: Cannot decrypt a directory.")
         return False
     except Exception as e:
         print(f"✗ Decryption failed: {e}")

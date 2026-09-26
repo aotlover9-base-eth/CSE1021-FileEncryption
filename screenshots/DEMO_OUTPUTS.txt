@@ -116,7 +116,8 @@ Where would you like to save the encrypted file?
 
 Enter your choice (1 or 2): 1                        <-- OPTION 1
 
-Enter full path with filename for encrypted file: /home/user/Documents/important/secret.encrypted
+Enter filename for encrypted file: secret.encrypted
+Enter file path: /home/user/Documents/important/
 
 ✓ File encrypted successfully!
   Original: test_demo.txt

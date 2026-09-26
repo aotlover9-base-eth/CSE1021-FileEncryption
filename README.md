@@ -59,7 +59,7 @@ When you run the application for the first time:
 1. Choose option **1** - "Generate a new encryption key"
 2. A new key will be generated
 3. Choose where to save it:
-   - **Option 1:** Save manually - Enter custom path (e.g., `/home/user/keys/mykey.key`)
+   - **Option 1:** Save manually - Enter filename, then destination folder/path
    - **Option 2:** Save in Downloads/keys - Automatically saves to `~/Downloads/keys/` folder (creates it if needed)
 
 **Important:** Keep your key file safe! Without it, you cannot decrypt files.
@@ -69,7 +69,7 @@ When you run the application for the first time:
 2. Enter the file path you want to encrypt (e.g., `secret.txt`)
 3. Enter your key file path
 4. Choose where to save the encrypted file:
-   - **Option 1:** Save manually - Enter custom path
+   - **Option 1:** Save manually - Enter filename, then destination folder/path
    - **Option 2:** Save in Downloads/keys - Automatically saves to `~/Downloads/keys/` folder
 5. The encrypted file will be saved to your chosen location
 
@@ -84,7 +84,7 @@ Encrypted file: ~/Downloads/keys/secret.txt.encrypted
 2. Enter the encrypted file path
 3. Enter your key file path
 4. Choose where to save the decrypted file:
-   - **Option 1:** Save manually - Enter custom path
+   - **Option 1:** Save manually - Enter filename, then destination folder/path
    - **Option 2:** Save in Downloads/keys - Automatically saves to `~/Downloads/keys/` folder
 5. The decrypted file will be saved to your chosen location
 
@@ -104,9 +104,9 @@ Decrypted file: ~/Downloads/keys/secret.txt
 
 ### Option 1: Save Manually
 Choose this if you want to save files in a specific location:
-- You type the complete path with filename
-- Example: `/home/user/my-documents/secret.txt`
-- Works with absolute paths (recommended) or relative paths
+- Prompts first for the filename (e.g., `mykey.key` or `secret.txt`)
+- Then prompts for the file path / destination directory (e.g., `/home/user/my-documents/` or `~/Downloads/demo data/`)
+- Works with absolute paths (recommended), relative paths, or home paths (`~`)
 
 ### Option 2: Save in Downloads/keys
 Choose this for organized, automatic storage:

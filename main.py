@@ -43,7 +43,7 @@ def handle_generate_key():
     save_location = get_save_location("encryption key")
 
     if save_location is None:
-        print("✗ Invalid choice. Key not saved.")
+        print("✗ Key not saved.")
         return
 
     save_key(key, save_location)
